@@ -78,7 +78,6 @@ Product Table Menu
                     cursor.execute(sql)
                     db.commit()
                     input('Done.')
-            db.close()
         except psycopg2.OperationalError:
             print('No database! Creating...')
             db = psycopg2.connect(user=self.databaseUser, password=self.databasePassword)
@@ -104,7 +103,6 @@ Product Table Menu
             sql = "insert into Product (Name, Price) values (%s,%s)"
             cursor.execute(sql, (name, price))
             db.commit()
-        db.close()
         input('Product added to the database.')
 
     def edit_product(self):
@@ -129,7 +127,6 @@ Product Table Menu
             sql = "update product set Name=%s, Price=%s where ProductID=%s"
             cursor.execute(sql, (name,price,id))
             db.commit()
-        db.close()
         input('Done')
 
     def delete_product(self):
@@ -152,7 +149,6 @@ Product Table Menu
             sql = "delete from Product where ProductID=%s"
             cursor.execute(sql, (id,))
             db.commit()
-        db.close()
         input('Done')
 
     def search_for_products(self):
@@ -166,7 +162,6 @@ Product Table Menu
             cursor.execute("select * from Product where Name=%s", (name,))
             answer = cursor.fetchall()
             self.print_in_table(answer)
-        db.close()
         input()
 
     def print_in_table(self, aList):
